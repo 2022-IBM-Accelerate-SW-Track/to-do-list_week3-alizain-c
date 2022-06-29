@@ -1,3 +1,5 @@
+
+
 import React, { Component } from "react";
 import Todos from "../component/todos";
 import AddTodo from "../component/AddTodo";
@@ -29,7 +31,14 @@ class Home extends Component {
   // updates the state with the new list.
   addTodo = (todo) => {
     const exists = this.state.todos.find(t => t.content === todo.content);
-    if (exists){ return }
+    if (exists){
+      return;
+    }
+
+    if(todo.due === null || todo.due === "Invalid Date"){
+      return;
+    }
+
     // In React, keys or ids in a list help identify which items have changed, been added or removed. Keys
     // should not share duplicate values.
     // To avoid having dup values, we use the Math.random() function to generate a random value for a todo id.
@@ -47,7 +56,7 @@ class Home extends Component {
     return (
       <div className="Home">
         <h1>Todo's </h1>
-        {/* When passing the AddTodo component, addTodo is a prop that is used in the 
+        {/* When passing the AddTodo component, addTodo is a prop that is used in the
         AddTodo.js file when handling the submit */}
         <AddTodo addTodo={this.addTodo} />
         {/* When returning the Todos component, todos is a prop passed to the todos.js file
